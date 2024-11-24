@@ -2,6 +2,9 @@
  * Post-specific styles
  */
 
+@use '../addon/variables.scss' as *;
+@use '../addon/module.scss' as M;
+
 %btn-post-nav {
   width: 50%;
   position: relative;
@@ -16,7 +19,7 @@
 
 header {
   .post-desc {
-    @extend %heading;
+    @include M.heading;
 
     font-size: 1.125rem;
     line-height: 1.6;
@@ -29,7 +32,7 @@ header {
 
     em,
     time {
-      @extend %text-highlight;
+      @include M.text-highlight;
     }
 
     em {
@@ -45,7 +48,7 @@ header {
 }
 
 .post-tail-wrapper {
-  @extend %text-sm;
+  @include M.text-sm;
 
   margin-top: 6rem;
   border-bottom: 1px double var(--main-border-color);
@@ -54,20 +57,20 @@ header {
     line-height: 1.2rem;
 
     > a {
-      @extend %text-highlight;
+      @include M.text-highlight;
 
       &:hover {
-        @extend %link-hover;
+        @include M.link-hover;
       }
     }
 
     span:last-child {
-      @extend %text-sm;
+      @include M.text-sm;
     }
   } /* .license-wrapper */
 
   .post-meta a:not(:hover) {
-    @extend %link-underline;
+    @include M.link-underline;
   }
 
   .share-wrapper {
@@ -107,7 +110,7 @@ header {
         border: none;
         line-height: inherit;
 
-        @extend %cursor-pointer;
+        @include M.cursor-pointer;
       }
     } /* .share-icons */
   } /* .share-wrapper */
@@ -131,9 +134,9 @@ header {
 
   .post-tag {
     &:hover {
-      @extend %link-hover;
-      @extend %tag-hover;
-      @extend %no-bottom-border;
+      @include M.link-hover;
+      @include M.tag-hover;
+      @include M.no-bottom-border;
     }
   }
 }
@@ -259,7 +262,7 @@ header {
     .toc-link {
       display: block;
 
-      @extend %text-ellipsis;
+      @include M.text-ellipsis;
 
       &:hover {
         color: var(--toc-highlight);
@@ -303,10 +306,10 @@ header {
   border-bottom: 1px solid var(--main-border-color);
   transition: all 0.2s ease-in-out;
 
-  @extend %btn-color;
+  @include M.btn-color;
 
   .label {
-    @extend %heading;
+    @include M.heading;
 
     margin-left: 0.25rem;
     padding: 0 0.75rem;
@@ -409,7 +412,7 @@ header {
   }
 
   .header {
-    @extend %btn-color;
+    @include M.btn-color;
 
     position: -webkit-sticky;
     position: sticky;
@@ -497,18 +500,18 @@ header {
 
 #related-posts {
   > h3 {
-    @include label(1.1rem, 600);
+    @include M.label(1.1rem, 600);
   }
 
   time {
-    @extend %normal-font-style;
-    @extend %text-xs;
+    @include M.normal-font-style;
+    @include M.text-xs;
 
     color: var(--text-muted-color);
   }
 
   p {
-    @extend %text-ellipsis;
+    @include M.text-ellipsis;
 
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
@@ -520,7 +523,7 @@ header {
 
   .card {
     h4 {
-      @extend %text-clip;
+      @include M.text-clip;
     }
   }
 }
@@ -540,7 +543,7 @@ header {
 }
 
 .share-label {
-  @include label(inherit, 400, inherit);
+  @include M.label(inherit, 400, inherit);
 
   &::after {
     content: ':';
@@ -567,8 +570,8 @@ header {
 /* Hide SideBar and TOC */
 @media all and (max-width: 849px) {
   .post-navigation {
-    @include pl-pr(0);
-    @include ml-mr(-0.5rem);
+    @include M.pl-pr(0);
+    @include M.ml-mr(-0.5rem);
   }
 }
 

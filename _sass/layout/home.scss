@@ -2,6 +2,9 @@
   Style for Homepage
 */
 
+@use '../addon/variables.scss' as *;
+@use '../addon/module.scss' as M;
+
 #post-list {
   margin-top: 2rem;
 
@@ -36,7 +39,7 @@
       padding: 1rem;
 
       .card-title {
-        @extend %text-clip;
+        @include M.text-clip;
 
         color: var(--heading-color) !important;
         font-size: 1.25rem;
@@ -50,7 +53,7 @@
         @extend %muted;
 
         p {
-          @extend %text-clip;
+          @include M.text-clip;
 
           line-height: 1.5;
           margin: 0;
@@ -67,7 +70,7 @@
         }
 
         em {
-          @extend %normal-font-style;
+          @include M.normal-font-style;
 
           color: inherit;
         }
@@ -75,7 +78,7 @@
         > div:first-child {
           display: block;
 
-          @extend %text-ellipsis;
+          @include M.text-ellipsis;
         }
       }
     }

@@ -2,6 +2,8 @@
   Style for page Category and Tag
 */
 
+@use '../addon/module.scss' as M;
+
 .dash {
   margin: 0 0.5rem 0.6rem 0.5rem;
   border-bottom: 2px dotted var(--dash-color);
@@ -28,7 +30,7 @@
 
     /* post's title */
     > a {
-      @extend %no-bottom-border;
+      @include M.no-bottom-border;
 
       font-size: 1.1rem;
     }
@@ -48,7 +50,7 @@
 #page-tag,
 #access-lastmod {
   a:hover {
-    @extend %link-hover;
+    @include M.link-hover;
 
     margin-bottom: -1px; /* Avoid jumping */
   }
@@ -63,7 +65,7 @@
       }
 
       > a {
-        @include text-ellipsis;
+        @include M.text-ellipsis;
       }
     }
   }

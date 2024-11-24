@@ -1,27 +1,32 @@
 /* The common styles */
 
+@use './variables.scss' as *;
+@use './module.scss' as M;
+@use '../colors/typography-dark.scss' as TD;
+@use '../colors/typography-light.scss' as TL;
+
 html {
   font-size: 16px;
 
   @media (prefers-color-scheme: light) {
     &:not([data-mode]),
     &[data-mode='light'] {
-      @include light-scheme;
+      @include TL.light-scheme;
     }
 
     &[data-mode='dark'] {
-      @include dark-scheme;
+      @include TD.dark-scheme;
     }
   }
 
   @media (prefers-color-scheme: dark) {
     &:not([data-mode]),
     &[data-mode='dark'] {
-      @include dark-scheme;
+      @include TD.dark-scheme;
     }
 
     &[data-mode='light'] {
-      @include light-scheme;
+      @include TL.light-scheme;
     }
   }
 }
@@ -36,15 +41,11 @@ body {
 }
 
 /* --- Typography --- */
-
 @for $i from 1 through 5 {
   h#{$i} {
-    @extend %heading;
+    @include M.heading;
 
-    @if $i > 1 {
-      @extend %anchor;
-    }
-
+    // Declare font-size before any other nested rules
     @if $i < 5 {
       $size-factor: 0.25rem;
 
@@ -60,17 +61,39 @@ body {
         }
       }
 
-      & {
-        font-size: 1rem + (5 - $i) * $size-factor;
-      }
+      // Set font-size here to avoid being inside nested rules
+      font-size: 1rem + (5 - $i) * $size-factor;
     } @else {
+      // This else block just handles the last heading
       font-size: 1.05rem;
+    }
+
+    // Apply the anchor mixin if the heading is > 1
+    @if $i > 1 {
+      @include M.anchor;
+    }
+
+    // Hover effects for anchors
+    @media (hover: hover) {
+      .anchor {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.25s ease-in, visibility 0s ease-in 0.25s;
+      }
+
+      &:hover {
+        .anchor {
+          visibility: visible;
+          opacity: 1;
+          transition: opacity 0.25s ease-in, visibility 0s ease-in 0s;
+        }
+      }
     }
   }
 }
 
 a {
-  @extend %link-color;
+  @include M.link-color;
 
   text-decoration: none;
 }
@@ -104,7 +127,7 @@ blockquote {
     padding: 1rem 1rem 1rem 3rem;
     color: var(--prompt-text-color);
 
-    @extend %rounded;
+    @include M.rounded;
 
     &::before {
       text-align: center;
@@ -117,10 +140,10 @@ blockquote {
     }
   }
 
-  @include prompt('tip', '\f0eb', $fa-style: 'regular');
-  @include prompt('info', '\f06a', $rotate: 180);
-  @include prompt('warning', '\f06a');
-  @include prompt('danger', '\f071');
+  @include M.prompt('tip', '\f0eb', $fa-style: 'regular');
+  @include M.prompt('info', '\f06a', $rotate: 180);
+  @include M.prompt('warning', '\f06a');
+  @include M.prompt('danger', '\f071');
 }
 
 kbd {
@@ -149,18 +172,18 @@ footer {
   height: $footer-height;
   border-top: 1px solid var(--main-border-color);
 
-  @extend %text-xs;
+  @include M.text-xs;
 
   a {
-    @extend %text-highlight;
+    @include M.text-highlight;
 
     &:hover {
-      @extend %link-hover;
+      @include M.link-hover;
     }
   }
 
   em {
-    @extend %text-highlight;
+    @include M.text-highlight;
   }
 
   p {
@@ -173,7 +196,7 @@ footer {
 i {
   &.far,
   &.fas {
-    @extend %no-cursor;
+    @include M.no-cursor;
   }
 }
 
@@ -210,7 +233,7 @@ i {
     font-family: inherit;
     line-height: inherit;
 
-    @include label(inherit);
+    @include M.label(inherit);
   }
 
   .post-tag {
@@ -231,10 +254,10 @@ i {
     color: inherit;
 
     &:hover {
-      @extend %link-hover;
+      @include M.link-hover;
     }
 
-    @extend %no-bottom-border;
+    @include M.no-bottom-border;
   }
 }
 
@@ -247,27 +270,27 @@ i {
       margin-bottom: 0.3rem;
     }
 
-    @extend %sup-fn-target;
+    @include M.sup-fn-target;
 
     > p {
       margin-left: 0.25em;
 
-      @include mt-mb(0);
+      @include M.mt-mb(0);
     }
   }
 }
 
 .footnote {
   @at-root a#{&} {
-    @include ml-mr(1px);
-    @include pl-pr(2px);
+    @include M.ml-mr(1px);
+    @include M.pl-pr(2px);
 
     border-bottom-style: none !important;
   }
 }
 
 sup {
-  @extend %sup-fn-target;
+  @include M.sup-fn-target;
 }
 
 .reversefootnote {
@@ -297,7 +320,7 @@ sup {
       border-bottom: solid 2px rgba(210, 215, 217, 0.75);
 
       th {
-        @extend %table-cell;
+        @include M.table-cell;
       }
     }
 
@@ -314,7 +337,7 @@ sup {
         }
 
         td {
-          @extend %table-cell;
+          @include M.table-cell;
         }
       }
     } /* tbody */
@@ -329,7 +352,7 @@ sup {
   height: 100%;
   overflow: hidden;
 
-  @extend %rounded;
+  @include M.rounded;
 
   &:not(.no-bg) {
     background: var(--img-bg);
@@ -340,7 +363,7 @@ sup {
     -o-object-fit: cover;
     object-fit: cover;
 
-    @extend %rounded;
+    @include M.rounded;
 
     @at-root #post-list & {
       width: 100%;
@@ -349,14 +372,14 @@ sup {
 }
 
 .post-preview {
-  @extend %rounded;
+  @include M.rounded;
 
   border: 0;
   background: var(--card-bg);
   box-shadow: var(--card-shadow);
 
   &::before {
-    @extend %rounded;
+    @include M.rounded;
 
     content: '';
     width: 100%;
@@ -384,7 +407,7 @@ main {
   p {
     > a.popup {
       &:not(.normal):not(.left):not(.right) {
-        @include align-center;
+        @include M.align-center;
       }
     }
   }
@@ -393,22 +416,22 @@ main {
   #tags,
   #archives {
     a:not(:hover) {
-      @extend %no-bottom-border;
+      @include M.no-bottom-border;
     }
   }
 }
 
 .post-meta {
-  @extend %text-sm;
+  @include M.text-sm;
 
   a {
     &:not([class]):hover {
-      @extend %link-hover;
+      @include M.link-hover;
     }
   }
 
   em {
-    @extend %normal-font-style;
+    @include M.normal-font-style;
   }
 }
 
@@ -419,18 +442,18 @@ main {
 
   a {
     &.popup {
-      @extend %no-cursor;
-      @extend %img-caption;
-      @include mt-mb(0.5rem);
+      @include M.no-cursor;
+      @include M.img-caption;
+      @include M.mt-mb(0.5rem);
 
       cursor: zoom-in;
     }
 
     &:not(.img-link) {
-      @extend %link-underline;
+      @include M.link-underline;
 
       &:hover {
-        @extend %link-hover;
+        @include M.link-hover;
       }
     }
   }
@@ -497,7 +520,7 @@ main {
 } /* .content */
 
 .tag:hover {
-  @extend %tag-hover;
+  @include M.tag-hover;
 }
 
 .post-tag {
@@ -566,7 +589,7 @@ main {
   margin-bottom: 1rem;
   aspect-ratio: 16 / 9;
 
-  @extend %rounded;
+  @include M.rounded;
 
   &.twitch {
     aspect-ratio: 310 / 189;
@@ -582,14 +605,14 @@ main {
     margin-bottom: 0;
   }
 
-  @extend %img-caption;
+  @include M.img-caption;
 }
 
 .embed-audio {
   width: 100%;
   display: block;
 
-  @extend %img-caption;
+  @include M.img-caption;
 }
 
 /* --- buttons --- */
@@ -680,7 +703,7 @@ $btn-border-width: 3px;
 $btn-mb: 0.5rem;
 
 #sidebar {
-  @include pl-pr(0);
+  @include M.pl-pr(0);
 
   position: fixed;
   top: 0;
@@ -707,7 +730,7 @@ $btn-mb: 0.5rem;
   }
 
   a {
-    @extend %sidebar-links;
+    @include M.sidebar-links;
   }
 
   #avatar {
@@ -728,8 +751,8 @@ $btn-mb: 0.5rem;
   }
 
   .profile-wrapper {
-    @include mt-mb(2.5rem);
-    @extend %clickable-transition;
+    @include M.mt-mb(2.5rem);
+    @include M.clickable-transition;
 
     padding-left: 2.5rem;
     padding-right: 1.25rem;
@@ -737,7 +760,7 @@ $btn-mb: 0.5rem;
   }
 
   .site-title {
-    @extend %clickable-transition;
+    @include M.clickable-transition;
     @extend %sidebar-link-hover;
 
     font-family: inherit;
@@ -769,10 +792,10 @@ $btn-mb: 0.5rem;
       opacity: 0.9;
       width: 100%;
 
-      @include pl-pr(1.5rem);
+      @include M.pl-pr(1.5rem);
 
       a.nav-link {
-        @include pt-pb(0.6rem);
+        @include M.pt-pb(0.6rem);
 
         display: flex;
         align-items: center;
@@ -843,7 +866,7 @@ $btn-mb: 0.5rem;
     a {
       @extend %button;
       @extend %sidebar-link-hover;
-      @extend %clickable-transition;
+      @include M.clickable-transition;
 
       &:not(:last-child) {
         margin-right: $sb-btn-gap;
@@ -856,13 +879,13 @@ $btn-mb: 0.5rem;
 
     #mode-toggle {
       @extend %button;
-      @extend %sidebar-links;
+      @include M.sidebar-links;
       @extend %sidebar-link-hover;
     }
 
     .icon-border {
-      @extend %no-cursor;
-      @include ml-mr(calc(($sb-btn-gap - $btn-border-width) / 2));
+      @include M.no-cursor;
+      @include M.ml-mr(calc(($sb-btn-gap - $btn-border-width) / 2));
 
       background-color: var(--sidebar-btn-color);
       content: '';
@@ -907,7 +930,7 @@ $btn-mb: 0.5rem;
 }
 
 #topbar {
-  @extend %btn-color;
+  @include M.btn-color;
 
   #breadcrumb {
     font-size: 1rem;
@@ -915,7 +938,7 @@ $btn-mb: 0.5rem;
     padding-left: 0.5rem;
 
     a:hover {
-      @extend %link-hover;
+      @include M.link-hover;
     }
 
     span {
@@ -930,43 +953,43 @@ $btn-mb: 0.5rem;
 } /* #topbar */
 
 ::-webkit-input-placeholder {
-  @include placeholder;
+  @include M.placeholder;
 }
 
 ::-moz-placeholder {
-  @include placeholder;
+  @include M.placeholder;
 }
 
 :-ms-input-placeholder {
-  @include placeholder;
+  @include M.placeholder;
 }
 
 ::-ms-input-placeholder {
-  @include placeholder;
+  @include M.placeholder;
 }
 
 ::placeholder {
-  @include placeholder;
+  @include M.placeholder;
 }
 
 :focus::-webkit-input-placeholder {
-  @include placeholder-focus;
+  @include M.placeholder-focus;
 }
 
 :focus::-moz-placeholder {
-  @include placeholder-focus;
+  @include M.placeholder-focus;
 }
 
 :focus:-ms-input-placeholder {
-  @include placeholder-focus;
+  @include M.placeholder-focus;
 }
 
 :focus::-ms-input-placeholder {
-  @include placeholder-focus;
+  @include M.placeholder-focus;
 }
 
 :focus::placeholder {
-  @include placeholder-focus;
+  @include M.placeholder-focus;
 }
 
 search {
@@ -995,7 +1018,7 @@ search {
   display: none;
   white-space: nowrap;
 
-  @extend %cursor-pointer;
+  @include M.cursor-pointer;
 }
 
 #search-input {
@@ -1033,7 +1056,7 @@ search {
       padding-right: 0.2rem;
     }
 
-    @extend %link-color;
+    @include M.link-color;
   }
 }
 
@@ -1045,12 +1068,12 @@ search {
     line-height: 1.5rem;
 
     &:hover {
-      @extend %link-hover;
+      @include M.link-hover;
     }
 
-    @extend %link-color;
-    @extend %no-bottom-border;
-    @extend %heading;
+    @include M.link-color;
+    @include M.no-bottom-border;
+    @include M.heading;
   }
 
   > article {
@@ -1068,7 +1091,7 @@ search {
     }
 
     > p {
-      @extend %text-ellipsis;
+      @include M.text-ellipsis;
 
       white-space: break-spaces;
       display: -webkit-box;
@@ -1098,7 +1121,7 @@ search {
 #main-wrapper {
   position: relative;
 
-  @include pl-pr(0);
+  @include M.pl-pr(0);
 
   > .container {
     min-height: 100vh;
@@ -1108,7 +1131,7 @@ search {
 #topbar-wrapper.row,
 #main-wrapper > .container > .row,
 #search-result-wrapper > .row {
-  @include ml-mr(0);
+  @include M.ml-mr(0);
 }
 
 #tail-wrapper {
@@ -1216,7 +1239,7 @@ search {
   main {
     .content {
       > blockquote[class^='prompt-'] {
-        @include ml-mr(-1rem);
+        @include M.ml-mr(-1rem);
 
         border-radius: 0;
         max-width: none;
@@ -1241,7 +1264,7 @@ search {
 
   #main-wrapper > .container {
     @extend %full-width;
-    @include pl-pr(0);
+    @include M.pl-pr(0);
   }
 }
 
@@ -1481,7 +1504,7 @@ search {
   #main-wrapper > .container {
     max-width: $main-content-max-width;
 
-    @include pl-pr(1.75rem, true);
+    @include M.pl-pr(1.75rem, true);
   }
 
   main.col-12,
@@ -1506,7 +1529,7 @@ search {
 
     ul {
       li.nav-item {
-        @include pl-pr(2.75rem);
+        @include M.pl-pr(2.75rem);
       }
     }
 
@@ -1519,7 +1542,7 @@ search {
       }
 
       .icon-border {
-        @include ml-mr(calc(($sb-btn-gap-lg - $btn-border-width) / 2));
+        @include M.ml-mr(calc(($sb-btn-gap-lg - $btn-border-width) / 2));
       }
     }
   }

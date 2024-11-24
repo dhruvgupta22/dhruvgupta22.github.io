@@ -2,29 +2,31 @@
 * The syntax highlight.
 */
 
-@import 'colors/syntax-light';
-@import 'colors/syntax-dark';
+@use './variables.scss' as *;
+@use './module.scss' as M;
+@use '../colors/syntax-dark' as SD;
+@use '../colors/syntax-light' as SL;
 
 html {
   @media (prefers-color-scheme: light) {
     &:not([data-mode]),
     &[data-mode='light'] {
-      @include light-syntax;
+      @include SL.light-syntax;
     }
 
     &[data-mode='dark'] {
-      @include dark-syntax;
+      @include SD.dark-syntax;
     }
   }
 
   @media (prefers-color-scheme: dark) {
     &:not([data-mode]),
     &[data-mode='dark'] {
-      @include dark-syntax;
+      @include SD.dark-syntax;
     }
 
     &[data-mode='light'] {
-      @include light-syntax;
+      @include SL.light-syntax;
     }
   }
 }
@@ -47,7 +49,7 @@ html {
 }
 
 .highlight {
-  @extend %rounded;
+  @include M.rounded;
   @extend %code-snippet-bg;
 
   overflow: auto;
@@ -144,13 +146,13 @@ td.rouge-code {
 }
 
 div[class^='language-'] {
-  @extend %rounded;
+  @include M.rounded;
   @extend %code-snippet-bg;
 
   box-shadow: var(--language-border-color) 0 0 0 1px;
 
   .content > & {
-    @include ml-mr(-1rem);
+    @include M.ml-mr(-1rem);
 
     border-radius: 0;
   }
@@ -179,7 +181,7 @@ div {
 }
 
 .code-header {
-  @extend %no-cursor;
+  @include M.no-cursor;
 
   display: flex;
   justify-content: space-between;
@@ -219,8 +221,8 @@ div {
 
   /* clipboard */
   button {
-    @extend %cursor-pointer;
-    @extend %rounded;
+    @include M.cursor-pointer;
+    @include M.rounded;
 
     border: 1px solid transparent;
     height: $code-header-height;
@@ -259,13 +261,13 @@ div {
 @media all and (min-width: 576px) {
   div[class^='language-'] {
     .content > & {
-      @include ml-mr(0);
+      @include M.ml-mr(0);
 
       border-radius: $radius-lg;
     }
 
     .code-header {
-      @include ml-mr(0);
+      @include M.ml-mr(0);
 
       $dot-margin: 1rem;
 
