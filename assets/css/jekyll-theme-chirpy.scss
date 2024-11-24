@@ -2,8 +2,8 @@
 ---
 
 @use '../../_sass/main.scss';
-{%- if jekyll.environment == 'production' -%}
-@import 'bundle';
-{%- endif -%}
+// {%- if jekyll.environment == 'production' -%}
+// @import 'bundle';
+// {%- endif -%}
 
 /* append your custom style below */
