@@ -1,3 +1,45 @@
+title: Dhruv Gupta
+email: dhruvg190305@gmail.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Welcome to my home page!
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://dhruvgupta.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+github_username:  dhruvgupta22
+
+# Navigation menu
+navigation:
+  - name: Home
+    link: "#home"
+  - name: About
+    link: "#about"
+  - name: Courses
+    link: "#courses"
+  - name: Projects
+    link: "#projects"
+  - name: Resume
+    link: "#resume"
+  - name: Contact
+    link: "#contact"
+
+# Social links
+social:
+  github: "https://github.com/dhruvgupta22"
+  linkedin: "https://linkedin.com/in/dhruv-gupta-6047b82a6"
+  instagram: "https://instagram.com/dhruvg_17"
+  email: "mailto:dhruvg190305@gmail.com"
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Theme and layout
+theme: jekyll-theme-chirpy
+
+
+
+
 # Welcome to Jekyll!
 #
 # This config file is meant for settings that affect your whole blog, values
@@ -18,21 +60,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Your awesome title
-email: your-email@example.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
 
-# Build settings
-theme: minima
-plugins:
-  - jekyll-feed
 
 # Exclude from processing.
 # The following items will not be processed, by default.
