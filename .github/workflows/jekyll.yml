@@ -36,16 +36,13 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2" # Ensures compatibility with `sass-embedded` gem
-          bundler-cache: true # Automatically runs 'bundle install' and caches gems
-          cache-version: 0 # Increment to invalidate cache if needed
+          ruby-version: '3.2'
+          bundler-cache: true
 
-      - name: Disable frozen mode for Bundler
-        # Allows changes to Gemfile.lock during installation
+      - name: Disable Bundler Frozen Mode
         run: bundle config set frozen false
 
       - name: Install dependencies
-        # Installs all dependencies and ensures updated Gemfile.lock
         run: bundle install --jobs 4 --retry 3
 
       - name: Setup Pages
@@ -53,13 +50,11 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Build with Jekyll
-        # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
 
       - name: Upload artifact
-        # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v3
 
   # Deployment job
