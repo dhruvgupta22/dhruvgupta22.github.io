@@ -3,7 +3,7 @@
 
 @use '../../_sass/main.scss';
 {%- if jekyll.environment == 'production' -%}
-@import '../../_sass/main.bundle.scss';
+@import 'bundle';
 {%- endif -%}
 
 /* append your custom style below */
