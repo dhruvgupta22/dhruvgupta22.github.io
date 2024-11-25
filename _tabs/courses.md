@@ -1,7 +1,7 @@
 ---
 # the default layout is 'page'
-icon: fas fa-user-circle
-order: 1
+icon: fas fa-graduation-cap
+order: 3
 ---
 
 <!-- > Add Markdown syntax content to file `_tabs/about.md`{: .filepath } and it will show up on this page.
