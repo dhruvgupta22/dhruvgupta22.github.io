@@ -1,6 +1,6 @@
 ---
 # the default layout is 'page'
-icon: fas fa-user-circle
+icon: fas fa-graduation-cap
 order: 1
 ---
 

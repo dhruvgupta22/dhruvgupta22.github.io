@@ -1,6 +1,6 @@
 ---
 # the default layout is 'page'
-icon: fas fa-graduation-cap
+icon: fas fa-chart-line
 order: 3
 ---
 
