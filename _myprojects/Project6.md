@@ -6,9 +6,6 @@ end_date: "2024-03-01"
 pin: false
 hidden: true
 icon: fa-database fa-fw me-1
-categories:
-  - Software Development
-  - DataScience
 
 
 # image: /assets/images/project-thumbnail.jpg

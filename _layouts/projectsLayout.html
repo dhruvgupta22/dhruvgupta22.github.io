@@ -77,12 +77,12 @@ category_icons:
                 {% endif %}
 
                 <!-- categories -->
-                {% if project.categories.size > 0 %}
+                {% if project.domain.size > 0 %}
                   <span class="categories" , style="margin-left: 8px">
-                    {% for category in project.categories %}
+                    {% for category in project.domain %}
                       <!-- Fetch the icon corresponding to the category -->
                       <i
-                        class="fas {{ project.category_icons[category] | default: 'fa-question-circle' }}"
+                        class="fas {{ project.domain_icons[category] | default: 'fa-question-circle' }}"
                         style="color: #3498db; margin-left: 8px; font-size: 14px;"
                       ></i>
                       <!-- Default icon if none found -->
