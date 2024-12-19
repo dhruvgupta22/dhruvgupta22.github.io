@@ -170,6 +170,11 @@ collections:
   tabs:
     output: true
     sort_by: order
+  myprojects:
+    output: true
+    # permalink: /projects/:path/
+  posts:
+    output: true
 
 defaults:
   - scope:
@@ -192,6 +197,14 @@ defaults:
     values:
       layout: page
       permalink: /:title/
+  - scope:
+      path: "_myprojects" # The directory for your projects
+      type: myprojects # The collection for your projects
+    values:
+      layout: project # Make sure this layout exists
+      paginate: true
+      per_page: 10
+      permalink: /projects/:path/
 
 sass:
   sass_dir: _sass
